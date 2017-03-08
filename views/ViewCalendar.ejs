@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Calendar</title>
+
+	<style>
+		table, th , td  {
+		  border: 1px solid grey;
+		  border-collapse: collapse;
+		  padding: 5px;
+		}
+		table tr:nth-child(odd) {
+		  background-color: #f1f1f1;
+		}
+		table tr:nth-child(even) {
+		  background-color: #ffffff;
+		}
+	</style>
+
+	<link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
+	<!-- jquery, moment, and angular have to get included before fullcalendar -->
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+	<script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-app="myAppModule" ng-controller="MyController">
+	<p style="display:none" id="response"><%= users %></p>
+	<h1 align="center">Event Calendar</h1><br><br>
+	<div class="row">
+		<form>
+		    <div class="form-group col-md-4">
+		      <label>Select User (select one):</label>
+		      <select id="emp" style="font-weight: bold;" class="form-control" ng-model="selectedUser" ng-change="getEvents()">
+		      	<option ng-selected="{{u.userId == selectedUser.userId}}" style="align-items: center; text-align: center; font-weight: bold;" ng-repeat="u in user" value="{{u.userId}}">{{u.name}}</option>
+		      </select>
+		      <!-- <select ng-init="selectedUser = options[0]" ng-model="selectedUser" ng-options="u.name for u in user"></select> -->
+		    </div>
+	  	</form>
+
+		<div class="col-md-8">
+			<div calendar="myCalendar" ui-calendar="uiConfig.calendar" data-ng-model="eventSources"></div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+	<h3 align = "center">Summary</h3><br>
+		<div class="col-md-3 col-sm-3">
+			<table>
+			<tr><th>Name</th><th>Hours Busy</th><th>Hours Free</th></tr>
+			  <tr ng-repeat="th in totalHours | orderBy : 'name'">
+			    <td style="width: 33%; text-align: center">{{ th.name }}</td>
+			    <td style="width: 33%; text-align: center">{{ th.hrsBusy }}</td>
+			    <td style="width: 33%; text-align: center">{{ th.hrsFree }}</td>
+			  </tr>
+			</table>
+		</div>
+		<div class="col-md-3 col-sm-3">
+			<table>
+				<tr><th>&nbsp;</th><th style="text-align: center">Name</th><th style="text-align: center">Hours</th></tr>
+				<tr>
+					<td style="width: 33%; text-align: center">Max busy user</td>
+					<td style="width: 33%; text-align: center" ng-model="busyUser">{{busyUser}}</td>
+					<td style="width: 33%; text-align: center" ng-model="maxhrs">{{maxhrs}}</td>
+				</tr>
+				<tr>
+					<td style="text-align: center">Max free user</td>
+					<td style="text-align: center" ng-model="freeUser">{{freeUser}}</td>
+					<td style="text-align: center" ng-model="minhrs">{{minhrs}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-3 col-sm-3">
+			<table>
+			<tr><th style="text-align: center">User Busy With Tasks</th><th style="text-align: center">Hours</th></tr>
+			  <tr ng-repeat="tw in taskWorkHrs | orderBy : '-hrs'">
+			    <td style="width: 50%; text-align: center">{{ tw.name }}</td>
+			    <td style="width: 50%; text-align: center">{{ tw.hrs }}</td>
+			  </tr>
+			</table>
+		</div>
+		<div class="col-md-3 col-sm-3">
+			<table>
+			<tr><th style="text-align: center">User Busy With Metting</th><th style="text-align: center">Hours</th></tr>
+			  <tr ng-repeat="mh in meetingHrs | orderBy : '-hrs'">
+			    <td style="width: 50%; text-align: center">{{ mh.name }}</td>
+			    <td style="width: 50%; text-align: center">{{ mh.hrs }}</td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+	<br><br>
+</body>
+
+<script type="text/javascript" src="js/buildCalendar.js"></script>
+</html>
