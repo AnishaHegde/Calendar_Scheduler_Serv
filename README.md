@@ -2,15 +2,15 @@
 
 Read tasks of individual members of the team to create a component to view the User calendar
 
-##Getting Started
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for testing purposes.
 
-###Prerequisites
+### Prerequisites
 
 Install [Node.js](https://nodejs.org/en/) and npm package manager before starting.
 
-###Installing
+### Installing
 
 1. git clone https://github.com/AnishaHegde/Calendar_Scheduler_Serv.git
 
@@ -18,10 +18,10 @@ Install [Node.js](https://nodejs.org/en/) and npm package manager before startin
 
 3. npm start
 
-###Running the tests
+### Running the tests
 
 Open any browser and start application by typing below link: 
-######http://localhost:3000/
+###### http://localhost:3000/
 
-###Sample Screen
+### Sample Screen
 ![alt tag](https://github.com/AnishaHegde/Calendar_Scheduler_Serv/blob/master/screenshots/screen.jpg)
